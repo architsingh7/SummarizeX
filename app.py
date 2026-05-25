@@ -4,41 +4,70 @@ from youtube_handler import extract_youtube_transcript
 from llm_handler import generate_summary
 
 st.set_page_config(page_title="SummarizeX", layout="wide")
-
 st.title("SummarizeX - Multi-Source AI Summarizer")
 
-api_key = st.sidebar.text_input("Enter Google Gemini API Key", type="password")
-length_preference = st.sidebar.radio("Summary Length", ["Short", "Medium", "Detailed"])
+if "text_summary" not in st.session_state:
+    st.session_state.text_summary = None
 
-tab1, tab2, tab3 = st.tabs(["Plain Text", "PDF Document", "YouTube URL"])
+if "pdf_summary" not in st.session_state:
+    st.session_state.pdf_summary = None
+
+if "yt_summary" not in st.session_state:
+    st.session_state.yt_summary = None
+
+api_key = st.sidebar.text_input("Enter Google Gemini API Key", type="password")
+
+length_preference = st.sidebar.radio(
+    "Summary Length",
+    ["Short", "Medium", "Detailed"]
+)
+
+tab1, tab2, tab3 = st.tabs(
+    ["Plain Text", "PDF Document", "YouTube URL"]
+)
 
 with tab1:
-    text_input = st.text_area("Paste your text here:", height=200)
+    text_input = st.text_area(
+        "Paste your text here:",
+        height=200
+    )
 
     if st.button("Summarize Text"):
         if not api_key:
             st.error("Please enter your API Key in the sidebar.")
+
         elif text_input:
             with st.spinner("Processing text..."):
                 try:
-                    result = generate_summary(text_input, length_preference, api_key)
-                    st.markdown(result)
-
-                    st.download_button(
-                        label="Download Summary",
-                        data=result,
-                        file_name="SummarizeX_Text_Summary.txt",
-                        mime="text/plain"
+                    st.session_state.text_summary = generate_summary(
+                        text_input,
+                        length_preference,
+                        api_key
                     )
+
                 except Exception as e:
                     st.error(f"API Error: {str(e)}")
 
+    if st.session_state.text_summary:
+        st.markdown(st.session_state.text_summary)
+
+        st.download_button(
+            label="Download Summary",
+            data=st.session_state.text_summary,
+            file_name="SummarizeX_Text_Summary.txt",
+            mime="text/plain"
+        )
+
 with tab2:
-    uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
+    uploaded_file = st.file_uploader(
+        "Upload PDF",
+        type=["pdf"]
+    )
 
     if st.button("Summarize PDF"):
         if not api_key:
             st.error("Please enter your API Key in the sidebar.")
+
         elif uploaded_file is not None:
             with st.spinner("Extracting and Processing..."):
                 try:
@@ -46,25 +75,36 @@ with tab2:
 
                     if "Error" in pdf_text:
                         st.error(pdf_text)
-                    else:
-                        result = generate_summary(pdf_text, length_preference, api_key)
-                        st.markdown(result)
 
-                        st.download_button(
-                            label="Download Summary",
-                            data=result,
-                            file_name="SummarizeX_PDF_Summary.txt",
-                            mime="text/plain"
+                    else:
+                        st.session_state.pdf_summary = generate_summary(
+                            pdf_text,
+                            length_preference,
+                            api_key
                         )
+
                 except Exception as e:
                     st.error(f"API Error: {str(e)}")
 
+    if st.session_state.pdf_summary:
+        st.markdown(st.session_state.pdf_summary)
+
+        st.download_button(
+            label="Download Summary",
+            data=st.session_state.pdf_summary,
+            file_name="SummarizeX_PDF_Summary.txt",
+            mime="text/plain"
+        )
+
 with tab3:
-    yt_url = st.text_input("Enter YouTube Video URL:")
+    yt_url = st.text_input(
+        "Enter YouTube Video URL:"
+    )
 
     if st.button("Summarize Video"):
         if not api_key:
             st.error("Please enter your API Key in the sidebar.")
+
         elif yt_url:
             with st.spinner("Fetching transcript and Processing..."):
                 try:
@@ -72,15 +112,23 @@ with tab3:
 
                     if "Error" in transcript:
                         st.error(transcript)
-                    else:
-                        result = generate_summary(transcript, length_preference, api_key)
-                        st.markdown(result)
 
-                        st.download_button(
-                            label="Download Summary",
-                            data=result,
-                            file_name="SummarizeX_YouTube_Summary.txt",
-                            mime="text/plain"
+                    else:
+                        st.session_state.yt_summary = generate_summary(
+                            transcript,
+                            length_preference,
+                            api_key
                         )
+
                 except Exception as e:
                     st.error(f"API Error: {str(e)}")
+
+    if st.session_state.yt_summary:
+        st.markdown(st.session_state.yt_summary)
+
+        st.download_button(
+            label="Download Summary",
+            data=st.session_state.yt_summary,
+            file_name="SummarizeX_YouTube_Summary.txt",
+            mime="text/plain"
+        )
