@@ -6,6 +6,9 @@
 [![YouTube API](https://img.shields.io/badge/YouTube-Transcript_API-red.svg)](https://pypi.org/project/youtube-transcript-api/)
 
 **SummarizeX** is a unified, multi-modal summarization tool designed to extract and synthesize information from various data sources. Built with Python and Streamlit, it leverages the Google Gemini LLM to generate structured, professional summaries from plain text, PDF documents, and YouTube videos.
+<img width="1920" height="904" alt="Summarizex_Screenshot1" src="https://github.com/user-attachments/assets/9535c716-9c79-4d8c-a137-d7b47eb68ca6" />
+<img width="1920" height="912" alt="Summarizex_Screenshot2" src="https://github.com/user-attachments/assets/d2926950-7c0b-4f06-a9f2-1724ecc974d5" />
+<img width="1920" height="918" alt="Summarizex_Screenshot3" src="https://github.com/user-attachments/assets/96c872f9-099d-46d9-9892-76ce5a717ded" />
 
 ## ✨ Key Features
 - **Multi-Modal Inputs:** Seamlessly switch between processing raw text, uploading PDF files, or pasting YouTube URLs via a tabbed interface.
