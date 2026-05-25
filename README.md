@@ -1,6 +1,6 @@
 # 📚 SummarizeX – Multi-Source AI Summarizer
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://archit-summarizex.streamlit.app)
+[![Streamlit App](https://img.shields.io/badge/Streamlit-App-FF4B4B.svg?style=flat&logo=Streamlit&logoColor=white)](https://archit-summarizex.streamlit.app)
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://python.org)
 [![Gemini API](https://img.shields.io/badge/Google-Gemini_API-orange.svg)](https://ai.google.dev/)
 [![YouTube API](https://img.shields.io/badge/YouTube-Transcript_API-red.svg)](https://pypi.org/project/youtube-transcript-api/)
