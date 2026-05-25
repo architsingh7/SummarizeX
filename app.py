@@ -23,6 +23,13 @@ with tab1:
                 try:
                     result = generate_summary(text_input, length_preference, api_key)
                     st.markdown(result)
+
+                    st.download_button(
+                        label="Download Summary",
+                        data=result,
+                        file_name="SummarizeX_Text_Summary.txt",
+                        mime="text/plain"
+                    )
                 except Exception as e:
                     st.error(f"API Error: {str(e)}")
 
@@ -43,6 +50,12 @@ with tab2:
                         result = generate_summary(pdf_text, length_preference, api_key)
                         st.markdown(result)
 
+                        st.download_button(
+                            label="Download Summary",
+                            data=result,
+                            file_name="SummarizeX_PDF_Summary.txt",
+                            mime="text/plain"
+                        )
                 except Exception as e:
                     st.error(f"API Error: {str(e)}")
 
@@ -63,5 +76,11 @@ with tab3:
                         result = generate_summary(transcript, length_preference, api_key)
                         st.markdown(result)
 
+                        st.download_button(
+                            label="Download Summary",
+                            data=result,
+                            file_name="SummarizeX_YouTube_Summary.txt",
+                            mime="text/plain"
+                        )
                 except Exception as e:
                     st.error(f"API Error: {str(e)}")
